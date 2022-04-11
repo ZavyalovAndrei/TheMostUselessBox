@@ -1,12 +1,8 @@
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class Box extends Thread {
-    private static int DELAY;
-    private static AtomicBoolean TOGGLE_SWITCH;
+    private final int delay;
 
-    public Box(int delay, AtomicBoolean toggleSwitch) {
-        this.DELAY = delay;
-        this.TOGGLE_SWITCH = toggleSwitch;
+    public Box(int delay) {
+        this.delay = delay;
     }
 
     @Override
@@ -14,9 +10,9 @@ public class Box extends Thread {
         System.out.println("Игрушка включена.");
         try {
             while (!isInterrupted()) {
-                Thread.sleep(DELAY);
-                if (TOGGLE_SWITCH.get()) {
-                    TOGGLE_SWITCH.lazySet(false);
+                Thread.sleep(delay);
+                if (Main.isToggleSwitch()) {
+                    Main.setToggleSwitch(false);
                     System.out.println("Игрушка выключила тумблер.");
                 }
             }

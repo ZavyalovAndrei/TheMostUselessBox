@@ -1,24 +1,20 @@
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class User extends Thread {
-    private final int DELAY;
-    private final int ATTEMPTS;
-    private static AtomicBoolean TOGGLE_SWITCH;
+    private final int delay;
+    private final int attempts;
 
-    public User(int delay, int attempts, AtomicBoolean toggleSwitch) {
-        this.DELAY = delay;
-        this.ATTEMPTS = attempts;
-        this.TOGGLE_SWITCH = toggleSwitch;
+    public User(int delay, int attempts) {
+        this.delay = delay;
+        this.attempts = attempts;
     }
 
     @Override
     public void run() {
         int attemptNumber = 1;
         try {
-            while (attemptNumber <= ATTEMPTS) {
-                if (!TOGGLE_SWITCH.get()) {
-                    Thread.sleep(DELAY);
-                    TOGGLE_SWITCH.lazySet(true);
+            while (attemptNumber <= attempts) {
+                if (!Main.isToggleSwitch()) {
+                    Thread.sleep(delay);
+                    Main.setToggleSwitch(true);
                     System.out.println("Попытка №" + attemptNumber + " Пользователь включил тумблер.");
                     attemptNumber++;
                 }
