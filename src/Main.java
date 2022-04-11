@@ -19,11 +19,5 @@ public class Main {
         box.setDaemon(true);
         box.start();
         user.start();
-//        while (true) {
-//            if (user.isInterrupted()) {
-//                box.interrupt();
-//                break;
-//            }
-//        }
     }
 }
